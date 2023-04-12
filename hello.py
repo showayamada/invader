@@ -10,7 +10,7 @@ pygame.display.set_caption("Invadars Game")              # タイトルバーに
 # Player
 PlayerImg = pygame.image.load("player.png")
 playerX, playerY = 370, 480
-player_change = 0
+playerX_change = 0
 
 def player(x, y):
     screen.blit(PlayerImg, (x, y))
@@ -31,14 +31,27 @@ while running:
         if event.type == pygame.QUIT:  # 閉じるボタンが押されたら終了
             running = False
         
+        # プレイヤーの操作
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 playerX_change = -1.5
             if event.key == pygame.K_RIGHT:
                 playerX_change = 1.5
-            
+            # if event.key == pygame.K_SPACE:
+            #    if bullet_state is "ready":
+            #        bulletX = playerX
+            #        fire_bullet(bulletX, bulletY)
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX_change = 0
 
-    # playerX += 1.5
+    playerX += playerX_change
+
+    # プレイヤーの移動制限
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 736:
+        playerX >= 736
     player(playerX, playerY)
 
     pygame.display.update()
